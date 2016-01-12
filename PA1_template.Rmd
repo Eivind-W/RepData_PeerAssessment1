@@ -1,9 +1,5 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+Title: "Reproducible Research: Peer Assessment 1"
+=================================================
 
 
 ## Loading and preprocessing the data
@@ -33,7 +29,7 @@ activity$interval.label <- paste(substr(activity$interval.label,1,2),
 We can easily find the mean total number of steps per day using the dplyr 
 package. The R-code below summarises the data and presents it as a histogram:
 
-```{r}
+```{r histogram1,fig.path="figure/"}
 library(dplyr) #loading dplyr in order to summarise data easily
 library(ggplot2) #loading ggplot2 to make plots
 
@@ -71,7 +67,7 @@ steps.intervals <- summarise(group_by(activity,interval),
 
 Then we plot the steps:
 
-```{r}
+```{r dailysteps1,fig.path="figure/"}
 ggplot(data=steps.intervals,aes(x=steps.intervals$interval, 
                                 y=steps.intervals$steps)) +
       geom_line(colour="blue") +
@@ -144,7 +140,7 @@ for (i in 1:nrow(activity)) {
 
 Next, we will build a histogram for the imputed dataset:
 
-```{r}
+```{r dailysteps2,fig.path="figure/"}
 # Calculating daily number of steps for each day:
 steps.daily2 <- summarise(group_by(activity2,date),steps = sum(steps))
 
@@ -184,7 +180,7 @@ activity$weekend <- factor( weekdays(activity$date,abbreviate = TRUE) %in% c("Sa
 
 The plot below allows us to compare activity during weekdays and weekends:
 
-```{r}
+```{r dailyweek,fig.path="figure/"}
 steps.weekend <- summarise(group_by(activity,interval,weekend),
                              steps = mean(steps,na.rm =TRUE))
 ggplot(data=steps.weekend,aes(x=interval, 
@@ -207,4 +203,5 @@ by checking the mean daily number of steps for weekends versus weekdays:
 steps.daily2$weekend <- factor( weekdays(steps.daily2$date,abbreviate = TRUE) %in% c("Sat","Sun"),
                                 labels=c("Weekday","Weekend"))
 dailymean2 <- summarise(group_by(steps.daily2,weekend),steps = mean(steps))
+dailymean2
 ```
