@@ -1,4 +1,5 @@
-# Reproducible Research: Peer Assessment 1
+Title: "Reproducible Research: Peer Assessment 1"
+=================================================
 
 
 ## Loading and preprocessing the data
@@ -74,7 +75,7 @@ ggplot(data=steps.daily,aes(steps.daily$steps)) +
 ## Warning: Removed 8 rows containing non-finite values (stat_bin).
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![](figure/histogram1-1.png) 
 
 Furthermore we can calculate the mean and median number of steps per day
 using the following code:
@@ -121,7 +122,7 @@ ggplot(data=steps.intervals,aes(x=steps.intervals$interval,
       ggtitle("Mean number of steps by the time of day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![](figure/dailysteps1-1.png) 
 
 The time-of-day interval with the highest number of mean steps is found using 
 the following code:
@@ -236,7 +237,7 @@ ggplot(data=steps.daily2,aes(steps.daily2$steps)) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
+![](figure/dailysteps2-1.png) 
 
 We then calculate mean and median scores for this distribution:
 
@@ -289,7 +290,7 @@ ggplot(data=steps.weekend,aes(x=interval,
       ggtitle("Mean number of steps by the time of day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+![](figure/dailyweek-1.png) 
 
 As we can see, there are in fact intriguing differences between weekday and
 weekend activity patterns. We see that the 08:35 activity spike is a distinctive
@@ -303,4 +304,14 @@ by checking the mean daily number of steps for weekends versus weekdays:
 steps.daily2$weekend <- factor( weekdays(steps.daily2$date,abbreviate = TRUE) %in% c("Sat","Sun"),
                                 labels=c("Weekday","Weekend"))
 dailymean2 <- summarise(group_by(steps.daily2,weekend),steps = mean(steps))
+dailymean2
+```
+
+```
+## Source: local data frame [2 x 2]
+## 
+##   weekend    steps
+##    (fctr)    (dbl)
+## 1 Weekday 10255.85
+## 2 Weekend 12201.52
 ```
